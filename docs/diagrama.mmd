@@ -1,0 +1,46 @@
+classDiagram
+    class CalculadoraFrete {
+        -EstrategiaFrete estrategia
+        +definirEstrategia(EstrategiaFrete)
+        +calcular(Pedido) double
+        +getNomeEstrategia() String
+    }
+    class EstrategiaFrete {
+        <<interface>>
+        +nome() String
+        +calcular(Pedido) double
+    }
+    class FreteEconomico {
+        +nome() String
+        +calcular(Pedido) double
+    }
+    class FreteExpresso {
+        +nome() String
+        +calcular(Pedido) double
+    }
+    class FreteRetirada {
+        +nome() String
+        +calcular(Pedido) double
+    }
+    class Pedido {
+        -double pesoKg
+        -Regiao regiao
+        +getPesoKg() double
+        +getRegiao() Regiao
+    }
+    class Regiao {
+        <<enumeration>>
+        MESMA_CIDADE
+        ESTADUAL
+        NACIONAL
+    }
+    class Main {
+        +main(String[])
+    }
+    CalculadoraFrete o--> EstrategiaFrete : estratégia atual
+    EstrategiaFrete <|.. FreteEconomico
+    EstrategiaFrete <|.. FreteExpresso
+    EstrategiaFrete <|.. FreteRetirada
+    EstrategiaFrete --> Pedido : calcula
+    Pedido --> Regiao
+    Main --> CalculadoraFrete : seleciona estratégia
